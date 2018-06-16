@@ -1,5 +1,11 @@
+
 function post_install(){
-    link_to_path "${PEARL_PKGDIR}/module/bin/tmux-xpanes"
+    local giturl=https://github.com/greymd/tmux-xpanes.git
+
+    info "Installing or updating the ${PEARL_PKGNAME} git repository..."
+    install_or_update_git_repo $giturl "${PEARL_PKGVARDIR}/tmux-xpanes" master
+
+    link_to_path "${PEARL_PKGVARDIR}/tmux-xpanes/bin/tmux-xpanes"
 }
 
 function post_update(){
@@ -7,5 +13,7 @@ function post_update(){
 }
 
 function pre_remove(){
-    unlink_from_path "${PEARL_PKGDIR}/module/bin/tmux-xpanes"
+    unlink_from_path "${PEARL_PKGVARDIR}/tmux-xpanes/bin/tmux-xpanes"
+
+    rm -rf "${PEARL_PKGVARDIR}/tmux-xpanes"
 }
